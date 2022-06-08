@@ -19,12 +19,14 @@
 template<class Key>
 class flatSet{
     private:
-    // a flat set is a sorted vector
+    // a flat set is a sorted vector of unique elements
     //INVARIANT - sorted list
     std::vector<Key> m_fs;
     
     //remove duplicates
-    void makeUnique() {
+    void makeFlatSet() {
+        // invariant - sort the vector by default
+        std::sort(m_fs.begin(), m_fs.end());
         //does not alter the size of the vector, just moves duplicates to the end
         // returns the iterator to one-past the last unique element in the vector
         auto it = std::unique (m_fs.begin(), m_fs.end());
@@ -38,27 +40,20 @@ class flatSet{
     using const_iterator = typename std::vector<Key>::const_iterator;
     //default constructor
     flatSet() = default;
+    
     //user-defined constructor
-    // TODO: decide whether it is desirable for this constructor to be explicit
-    // since we are giving
-    //TODO: refactor the constructors to remove duplicate code (add to the unique private function perhaps)
+    // Decided not to have an explicit constructor, since we are giving the constructor the type
     flatSet(std::vector<Key> f)
     : m_fs{std::move(f)} //member initialisation using move semantics
         {
-            // invariant - sort the vector by default
-            std::sort(m_fs.begin(), m_fs.end());
-            // remove duplicate elements
-            makeUnique();
+            makeFlatSet();
         }
     
     //constructor with initialiser list (intrinsically const)
     flatSet(std::initializer_list<Key> fi)
         : m_fs{fi} //member initialization
         {
-            //sort the vector
-            std::sort(m_fs.begin(), m_fs.end());
-            //call remove duplicate elements
-            makeUnique();
+            makeFlatSet();
         }
     
     //copy constructor
@@ -181,7 +176,7 @@ inline auto flatSet<Key>::find( const Key& toFind) const -> const_iterator{
     return it;
 }
 
-// debugging duplicates
+// ---------------DEBUGGING DUPLICATES---------------------
 // do i have #pragma once (or alternative)
 // if yes, check for functions which have been both declared and defined and not inline
 // (if templated, functions are implicitly inline)
