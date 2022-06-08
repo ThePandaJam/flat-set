@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E502C14283FD6B0005AFDE3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E502C13283FD6B0005AFDE3 /* main.cpp */; };
+		4E502C30284F6127005AFDE3 /* flatSetTesting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E502C2F284F6127005AFDE3 /* flatSetTesting.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,9 @@
 /* Begin PBXFileReference section */
 		4E502C10283FD6B0005AFDE3 /* Project_flat_set */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Project_flat_set; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E502C13283FD6B0005AFDE3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4E502C1A283FD7C2005AFDE3 /* flatSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flatSet.h; sourceTree = "<group>"; };
+		4E502C2E284E5D64005AFDE3 /* flatSetTesting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flatSetTesting.h; sourceTree = "<group>"; };
+		4E502C2F284F6127005AFDE3 /* flatSetTesting.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = flatSetTesting.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,9 @@
 			isa = PBXGroup;
 			children = (
 				4E502C13283FD6B0005AFDE3 /* main.cpp */,
+				4E502C1A283FD7C2005AFDE3 /* flatSet.h */,
+				4E502C2E284E5D64005AFDE3 /* flatSetTesting.h */,
+				4E502C2F284F6127005AFDE3 /* flatSetTesting.cpp */,
 			);
 			path = Project_flat_set;
 			sourceTree = "<group>";
@@ -119,6 +126,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E502C30284F6127005AFDE3 /* flatSetTesting.cpp in Sources */,
 				4E502C14283FD6B0005AFDE3 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +247,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"OTHER_CPLUSPLUSFLAGS[arch=*]" = (
+					"-std=c++2a",
+					"-stdlib=libc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -247,6 +259,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"OTHER_CPLUSPLUSFLAGS[arch=*]" = (
+					"-stdlib=libc++",
+					"-std=c++2a",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
