@@ -16,11 +16,12 @@
 #include <sstream>
 #include <string>
 
+template<class Key>
 class flatSet{
     private:
     // a flat set is a sorted vector
     //INVARIANT - sorted list
-    std::vector<int> m_fs;
+    std::vector<Key> m_fs;
     
     //remove duplicates
     void makeUnique() {
@@ -33,14 +34,15 @@ class flatSet{
     }
     
     public:
-    using const_iterator = std::vector<int>::const_iterator;
+    // typename needed here because the compiler does not know whether std::vector is a value or a type, unless specified
+    using const_iterator = typename std::vector<Key>::const_iterator;
     //default constructor
     flatSet() = default;
     //user-defined constructor
     // TODO: decide whether it is desirable for this constructor to be explicit
     // since we are giving
     //TODO: refactor the constructors to remove duplicate code (add to the unique private function perhaps)
-    flatSet(std::vector<int> f)
+    flatSet(std::vector<Key> f)
     : m_fs{std::move(f)} //member initialisation using move semantics
         {
             // invariant - sort the vector by default
@@ -50,7 +52,7 @@ class flatSet{
         }
     
     //constructor with initialiser list (intrinsically const)
-    flatSet(std::initializer_list<int> fi)
+    flatSet(std::initializer_list<Key> fi)
         : m_fs{fi} //member initialization
         {
             //sort the vector
@@ -107,7 +109,7 @@ class flatSet{
     //  insert - insert element (must remain ordered)
     // this insert method will not insert elements that already exist in the flat set
     //TODO: refactor repeating code in insert and find (helper function)
-    std::pair<const_iterator, bool> insert(const int &toInsert){
+    std::pair<const_iterator, bool> insert(const Key &toInsert){
         //O(log n)
         auto it = std::lower_bound(m_fs.begin(), m_fs.end(), toInsert);
         if ((it != m_fs.end()) && (*it == toInsert))
@@ -117,7 +119,7 @@ class flatSet{
     }
     
     //  erase - erase element(s)
-    void erase(int toErase) {
+    void erase(Key toErase) {
         //use the erase-remove idiom
         // O(n) + O(n) -
         // because the remove moves the elements up after moving the selected element to the end
@@ -130,7 +132,7 @@ class flatSet{
     // x = element to search
     // lb = lower bound
     // ub = upper bound
-    auto find( const int& toFind) const -> const_iterator;
+    auto find( const Key& toFind) const -> const_iterator;
     
     
     //non-member comparisons
@@ -168,7 +170,8 @@ class flatSet{
     
 };
 //trailing return type
-inline auto flatSet::find( const int& toFind) const -> const_iterator{
+template<class Key>
+inline auto flatSet<Key>::find( const Key& toFind) const -> const_iterator{
     auto it = std::lower_bound(m_fs.begin(), m_fs.end(), toFind);
     if (it == m_fs.end() || (*it != toFind)){
         //element not found

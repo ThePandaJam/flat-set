@@ -20,7 +20,7 @@
 //TODO: play around with command line args
 int main(int argc, const char * argv[]) {
     using namespace testing;
-    flatSet a{};
+    flatSet<int> a{};
     std::cout << "size of flat set a: " << a.size() << '\n';
     std::cout << std::boolalpha;
     std::cout << "distance between beginning and end of a: " << std::distance(a.begin(), a.end()) << '\n';
@@ -29,7 +29,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "a != a: " << (a!=a) << '\n';
     std::cout << "-----------------------------" << '\n';
 
-    flatSet b{42};
+    flatSet<int> b{42};
     std::cout << "size of flat set b: " << b.size() << '\n';
     std::cout << "distance between beginning and end of b: " << std::distance(b.begin(), b.end()) << '\n';
     std::cout << "Is b empty?: " << b.empty() << '\n';
@@ -49,9 +49,9 @@ int main(int argc, const char * argv[]) {
     
     std::cout << "-----------------------------" << '\n';
     
-    flatSet c{4, 2};
-    flatSet d{2, 3, 4};
-    flatSet e{2, 3};
+    flatSet<int> c{4, 2};
+    flatSet<int> d{2, 3, 4};
+    flatSet<int> e{2, 3};
     std::set<int> cSet{2, 4};
     //the set is the same
     checkFlatSet(c, cSet);
@@ -60,14 +60,14 @@ int main(int argc, const char * argv[]) {
     //checking for a single mismatch
     checkFlatSet(e, cSet);
     //checking multiple mismatches in same set
-    flatSet f{1, 2, 2, 4, 5, 5, 7};
+    flatSet<int> f{1, 2, 2, 4, 5, 5, 7};
     std::set<int> fSet{1, 2, 3, 4, 5, 6, 7};
     checkFlatSet(f, fSet);
     
     std::cout << "-----------------------------" << '\n';
 
-    flatSet odds{1, 3, 3, 3, 3, 5, 7};
-    flatSet oddsUnique{1, 3, 5, 7};
+    flatSet<int> odds{1, 3, 3, 3, 3, 5, 7};
+    flatSet<int> oddsUnique{1, 3, 5, 7};
     std::cout << "odds == oddsUnique: " << (odds==oddsUnique) << '\n';
 
     checkFind(odds, 3);
